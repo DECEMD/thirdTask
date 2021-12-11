@@ -1,6 +1,8 @@
 package com.example.thirdtask
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -9,6 +11,7 @@ import com.squareup.picasso.Picasso
 
 
 class FindImage : AppCompatActivity() {
+    private lateinit var nButton: Button
     lateinit var imView: ImageView
     lateinit var imViewMini: ImageView
     lateinit var edText: EditText
@@ -18,6 +21,12 @@ class FindImage : AppCompatActivity() {
         imView = findViewById(R.id.imView)
         edText = findViewById(R.id.edImage)
         imViewMini = findViewById(R.id.imViewMini)
+        nButton = findViewById(R.id.button)
+
+        nButton.setOnClickListener{
+            val intent = Intent(this, AdditionalTask::class.java)
+            startActivity(intent)
+        }
 
         //edText.setOnTouchListener { ->}
         imViewMini.setOnClickListener {
