@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ThirdTask</string>
+    <string name="find_image">Find image by URL </string>
+</resources>
