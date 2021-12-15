@@ -35,9 +35,13 @@ class AdditionalTask : AppCompatActivity() {
 
         imViewMini2.setOnClickListener {
             if (edText2.text.isNotEmpty()){
-                StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().permitNetwork().build())
-                val bitmap = downloadBitmap(edText2.text.toString())
-                imView2.setImageBitmap(bitmap)
+                val uiHandler = Handler(Looper.getMainLooper())
+                thread(start = true) {
+                    val bitmap = downloadBitmap(edText2.text.toString())
+                    uiHandler.post {
+                        imView2.setImageBitmap(bitmap)
+                    }
+                }
             } else {
                 imView2.setImageResource(R.drawable.ic_baseline_error_outline_24)
                 Toast.makeText(this,
