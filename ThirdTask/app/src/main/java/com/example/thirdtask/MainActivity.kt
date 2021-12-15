@@ -11,22 +11,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
-    lateinit var secondTask: FloatingActionButton
-
-
+    lateinit var onSecondTask: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        onSecondTask = findViewById(R.id.floating_action_button)
 
-
-        secondTask = findViewById(R.id.floating_action_button)
-        secondTask.setOnClickListener{
+        onSecondTask.setOnClickListener {
             val intent = Intent(this, FindImage::class.java)
             startActivity(intent)
         }
-
-
     }
-
 }

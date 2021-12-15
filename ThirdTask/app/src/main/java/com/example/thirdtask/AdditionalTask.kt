@@ -24,31 +24,28 @@ class AdditionalTask : AppCompatActivity() {
     lateinit var imView2: ImageView
     lateinit var imViewMini2: ImageView
     lateinit var edText2: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_additional_task)
+
         imView2 = findViewById(R.id.imView2)
         edText2 = findViewById(R.id.edImage2)
         imViewMini2 = findViewById(R.id.imViewMini2)
 
         imViewMini2.setOnClickListener {
-            if (edText2.text.toString() != ""){
-                CoroutineScope(Dispatchers.IO).launch {
-                    Log.i("Log1", "Current thread ${Thread.currentThread().name}")
-                    val bitmap = downloadBitmap(edText2.text.toString())
-                    withContext(Dispatchers.Main) {
-                        Log.i("Log1", "Current thread in the main dispatcher: ${Thread.currentThread().name}")
-                        imView2.setImageBitmap(bitmap)
-                    }
-
-                }
+            if (edText2.text.isNotEmpty()){
+                StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().permitNetwork().build())
+                val bitmap = downloadBitmap(edText2.text.toString())
+                imView2.setImageBitmap(bitmap)
             } else {
                 imView2.setImageResource(R.drawable.ic_baseline_error_outline_24)
-                Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,
+                    R.string.error_alert,
+                    Toast.LENGTH_SHORT)
+                    .show()
             }
         }
-
-
     }
 
     private fun downloadBitmap(imageUrl: String): Bitmap? {
